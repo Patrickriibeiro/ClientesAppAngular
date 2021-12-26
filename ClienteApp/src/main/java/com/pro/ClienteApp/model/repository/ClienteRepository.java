@@ -9,6 +9,4 @@ import com.pro.ClienteApp.model.entity.ClienteEntity;
 @Repository
 public interface ClienteRepository extends JpaRepository<ClienteEntity,Integer> {
 	
-	
-  
 }
