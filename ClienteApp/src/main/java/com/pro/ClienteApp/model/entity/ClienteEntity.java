@@ -8,6 +8,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.PrePersist;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.br.CPF;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -28,13 +32,16 @@ public class ClienteEntity {
      private Integer id;
 	
 	 @Column(nullable = false, length = 150)
+	 @NotEmpty //valida null e vazio;
      private String nome;
 	 
 	 @Column(nullable = false, length = 11)
+	 @NotNull
+	 @CPF
      private String cpf;
 	 
-	 @Column(name = "data_cadastro")
-	 @JsonFormat(pattern =  "dd/MM/yyyy")
+	 @Column(name = "data_cadastro", updatable = false) //updatable não permite que esse campo seja atualizado. 
+	 @JsonFormat(pattern =  "dd/MM/yyyy")//Formata o retorno do json em data br.
      private LocalDate dataCadastro;
 	 
 	 @PrePersist  //Quando esse entidade for persistida no bando de dados ele executara esse metodo.
