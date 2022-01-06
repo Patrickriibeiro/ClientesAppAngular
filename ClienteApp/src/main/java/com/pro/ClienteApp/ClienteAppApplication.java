@@ -15,8 +15,8 @@ public class ClienteAppApplication {
 	@Bean
 	public CommandLineRunner Run(@Autowired ClienteRepository repository) {
 		return args -> {
-			ClienteEntity cliente = ClienteEntity.builder().cpf("11111111111")
-					.nome("Fulano").build();;
+			ClienteEntity cliente = ClienteEntity.builder().cpf("10955116708")
+					.nome("Patrick Ribeiro").build();;
 			repository.save(cliente);
 		};
 	}

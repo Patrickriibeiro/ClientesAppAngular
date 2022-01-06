@@ -1,5 +1,7 @@
 package com.pro.ClienteApp.controller;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -25,14 +27,14 @@ public class ClienteController {
 	private ClienteRepository clienteRepository;
 
 	@PostMapping // Usado para inserir um novo dado.
-	@ResponseStatus(code = HttpStatus.CREATED) // retorna o Status code informado na anotação.
-	public ClienteEntity salvar(@RequestBody ClienteEntity cliente) {
+	@ResponseStatus(code = HttpStatus.CREATED) // retorna o Status code informado na anotação. @Valid serve para validar o campos da entidade na requisição Rest inves de ser na hora da persistencia.
+	public ClienteEntity salvar(@RequestBody @Valid ClienteEntity cliente)  {
 		return clienteRepository.save(cliente);
 	}
 
 	@GetMapping(value = "{id}")
 	public ClienteEntity acharPorId(@PathVariable(name = "id") Integer id) {
-		return clienteRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+		return clienteRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,"Cliente não encontrado"));
 	}
 
 	@DeleteMapping("{id}")
@@ -41,17 +43,17 @@ public class ClienteController {
 		clienteRepository.findById(id).map(cliente -> {
 			clienteRepository.delete(cliente);
 			return Void.TYPE;
-		}).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+		}).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,"Cliente não encontrado"));
 	}
 
 	@PutMapping("{id}")
 	@ResponseStatus(code = HttpStatus.NO_CONTENT) // "reason" Use somente não tiver algum retorno no metodo https.
-	public void atualizar(@PathVariable(value = "id") Integer id, @RequestBody ClienteEntity clienteAtualizado) {
+	public void atualizar(@PathVariable(value = "id") Integer id, @RequestBody @Valid ClienteEntity clienteAtualizado) {
 		clienteRepository.findById(id).map(cliente -> {
 			cliente.setNome(clienteAtualizado.getNome());
 			cliente.setCpf(clienteAtualizado.getCpf());
 			return clienteRepository.save(clienteAtualizado);
-		}).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+		}).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,"Cliente não encontrado"));
 	}
 
 }
