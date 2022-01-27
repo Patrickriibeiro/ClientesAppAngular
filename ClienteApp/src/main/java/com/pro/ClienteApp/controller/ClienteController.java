@@ -1,5 +1,7 @@
 package com.pro.ClienteApp.controller;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +40,12 @@ public class ClienteController {
 	public ClienteEntity acharPorId(@PathVariable(name = "id") Integer id) {
 		return clienteRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,"Cliente não encontrado"));
 	}
-
+	
+	@GetMapping
+	public List<ClienteEntity> listarTodos(){
+		return clienteRepository.findAll();
+	}
+	
 	@DeleteMapping("{id}")
 	@ResponseStatus(code = HttpStatus.NO_CONTENT)
 	public void deletar(@PathVariable(name = "id") Integer id) {
@@ -57,5 +64,7 @@ public class ClienteController {
 			return clienteRepository.save(clienteAtualizado);
 		}).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,"Cliente não encontrado"));
 	}
+	
+	
 
 }

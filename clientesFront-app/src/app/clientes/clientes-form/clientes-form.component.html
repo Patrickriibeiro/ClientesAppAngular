@@ -3,18 +3,26 @@
     <li class="breadcrumb-item active">Cadastro</li>
 </ol>
 <div class="container">
-    <form #clienteForm="ngForm" (ngSubmit) = "onSubmit()">
+    <form #clienteForm="ngForm" (ngSubmit)="onSubmit()">
         <div class="row">
+            <div class="col-md-12">
+                <div class="alert alert-success" role="alert" *ngIf="success === true">Cliente salvo/atualizado com
+                    sucesso</div>
+                <div class="alert alert-danger" role="alert" *ngFor="let erros of errors">{{erros}}</div>
+            </div>
+        </div>
+        <div class="row" *ngIf="cliente.id">
             <div class="col-md-6">
                 <div class="form-group">
                     <label>ID:</label>
-                    <input type="text" class="form-control" disabled="true"  [ngModel] = "cliente.id" name="id"/>
+                    <input type="text" class="form-control" disabled="true" [ngModel]="cliente.id" name="id" />
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
                     <label>Data Cadastro:</label>
-                    <input type="text" class="form-control" [ngModel]= "cliente.dataCadastro" name="dataCadastro"  disabled="true" />
+                    <input type="text" class="form-control" [ngModel]="cliente.dataCadastro" name="dataCadastro"
+                        disabled="true" />
                 </div>
             </div>
         </div>
@@ -23,22 +31,22 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <label>Nome:*</label>
-                    <input type="text" class="form-control" [(ngModel)] = "cliente.nome" name="nome" />
+                    <input type="text" class="form-control" [(ngModel)]="cliente.nome" name="nome" />
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
                     <label>CPF:*</label>
-                    <input type="text" class="form-control" [(ngModel)] = "cliente.cpf" name="cpf"/>
+                    <input type="text" class="form-control" [(ngModel)]="cliente.cpf" name="cpf" />
                 </div>
             </div>
         </div>
         <div class="row">
-           <div class="col-md-2">
-               <button type="submit" class="btn btn-success" >
-                   <i class="fa fa-save"></i> Salvar
-               </button>
-           </div>
+            <div class="col-md-2">
+                <button type="submit" class="btn btn-success">
+                    <i class="fa fa-save"></i> Salvar
+                </button>
+            </div>
         </div>
     </form>
 </div>
