@@ -4,8 +4,14 @@
 </ol>
 <div class="container">
     <div class="row">
+            <div class="col-md-12">
+                <div class="alert alert-success" role="alert" *ngIf="mensagemSucesso">{{ mensagemSucesso }}</div>
+                <div class="alert alert-danger" role="alert" *ngFor="mensagemErro">{{ mensagemErro }}</div>
+            </div>
+        </div>
+    <div class="row">
         <div class="col-md-2">
-            <button type = "button" class="btn btn-warning" (click)="novoCadastro()">
+            <button type="button" class="btn btn-warning" (click)="novoCadastro()">
                 <i class="fa fa-plus"></i> Novo
             </button>
         </div>
@@ -32,9 +38,31 @@
                         <button class="btn btn-primary" routerLink="/clientes-form/{{ cliente.id }}">
                             <i class="fa fa-edit"></i>
                         </button>
+
+                        <button class="btn btn-danger" (click)="preparaDelecao(cliente)" data-toggle="modal"
+                            data-target="#modalDelecao">
+                            <i class="fa fa-trash"></i>
+                        </button>
                     </td>
                 </tr>
             </tbody>
         </table>
+    </div>
+    <div id="modalDelecao" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4>Confirmação</h4>
+                </div>
+                <div class="modal-body" *ngIf="clienteSelecionado">
+                    Confirma a deleção do(a) cliente {{ clienteSelecionado.nome }} ?
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-success" (click)="deletarCliente()"> Confirmar </button>
+                    <button class="btn btn-danger" data-dismiss="modal"> Cancelar </button>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
