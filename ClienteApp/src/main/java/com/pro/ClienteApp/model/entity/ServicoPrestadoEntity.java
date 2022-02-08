@@ -1,6 +1,7 @@
 package com.pro.ClienteApp.model.entity;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,7 +15,7 @@ import lombok.Data;
 
 @Entity
 @Data
-public class ServicoEntity {
+public class ServicoPrestadoEntity {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,5 +30,8 @@ public class ServicoEntity {
 	
 	@Column // se não passar um value com nome da coluna, a coluna receberá o nome da variavel.
 	private BigDecimal valor;
+	
+	@Column
+	private LocalDate data;
 
 }
