@@ -5,6 +5,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -38,7 +40,7 @@ public class ServicoPrestadoController {
 
 	@PostMapping()
 	@ResponseStatus(HttpStatus.CREATED)
-	public ServicoPrestadoEntity salvar(@RequestBody ServicoPrestadoDTO dto) {
+	public ServicoPrestadoEntity salvar(@RequestBody @Valid ServicoPrestadoDTO dto) {
 
 		Optional<ClienteEntity> clienteOpcional = clienteRepo.findById(dto.getIdCliente());
 

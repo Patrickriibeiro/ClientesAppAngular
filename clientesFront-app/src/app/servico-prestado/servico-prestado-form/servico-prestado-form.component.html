@@ -6,6 +6,12 @@
     <form #form="ngForm" (submit)="onSubmit()">
         <div class="row">
             <div class="col-md-12">
+                <div class="alert alert-success" role="alert" *ngIf="success === true">Serviço salvo com sucesso</div>
+                <div class="alert alert-danger" role="alert" *ngFor="let erros of errors">{{erros}}</div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
                 <div class="form-group">
                     <label>Cliente :</label>
                     <select class="form-control" [ngModelOptions]="{standalone: true}" [(ngModel)]="servico.idCliente">
