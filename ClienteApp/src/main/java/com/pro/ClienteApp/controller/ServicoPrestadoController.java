@@ -56,7 +56,7 @@ public class ServicoPrestadoController {
 	
 	@GetMapping()
 	public List<ServicoPrestadoEntity> pesquisar(@RequestParam(value = "nome", required = false, defaultValue = "") String nome, 
-			@RequestParam(value = "mes", required = false) String mes){		
+			@RequestParam(value = "mes", required = false, defaultValue = "") String mes){		
 		System.out.println(mes);
 		System.out.println(nome);
 		return servicoRepo.findByNomeClienteAndMes("%" + nome + "%", Integer.parseInt(mes));	
