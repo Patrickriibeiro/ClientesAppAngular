@@ -31,6 +31,7 @@ public class ApplicationControllerAdvice {
 		return new ApiErrors(messages);
 	}
 	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@ExceptionHandler(ResponseStatusException.class)
 	public ResponseEntity handleValidationErrors(ResponseStatusException ex) {
 		String messagemErro = ex.getMessage();

@@ -1,0 +1,65 @@
+@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@500&display=swap');
+
+.textTitle{
+    color:#004CE5;
+    font-size: xx-large;
+    font-family: 'Baloo 2', cursive;
+}
+
+.textCards{
+    color:gray;
+    text-align: center;
+}
+
+.borderOrange{
+    border:2px solid gray;
+    border-radius: 10px;
+
+}
+
+.imgSize{
+    height: 150px;
+}
+
+.bgColor{
+    background-color: #DEDEDE;
+}
+
+.borderImage{
+    border-bottom: 2px solid gray;
+}
+
+.cardHeight {
+    max-height: 250px;
+}
+
+.changeCurso{
+    cursor: pointer; 
+}
+
+.blackandwhite {
+    filter: gray;
+    filter: grayscale(100%);
+}
+
+
+.removeLink{
+    pointer-events: none;
+    cursor: default;
+ }
+
+.cardHeight:hover{
+    border: 1px solid gray;
+    border-radius: 10px;
+    border-bottom: 2px solid red;
+}
+
+.cardHeight:hover .textCards{
+    color:gray;
+    text-align: center;
+}
+
+.cardHeight:hover .borderImage{
+    border-bottom: 2px solid gray;
+
+}

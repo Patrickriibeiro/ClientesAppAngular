@@ -13,6 +13,8 @@ import { ServicoPrestadoModule } from './servico-prestado/servico-prestado.modul
 import { ServicoPrestadoService } from './servico-prestado.service';
 import { LoginComponent } from './login/login.component';
 import { LayoutComponent } from './layout/layout.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatCardModule} from '@angular/material/card';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,9 @@ import { LayoutComponent } from './layout/layout.component';
     HttpClientModule,
     TemplateModule,
     ClientesModule,
-    ServicoPrestadoModule
+    ServicoPrestadoModule,
+    BrowserAnimationsModule,
+    MatCardModule
   ],
   providers: [
     ClientesService,
