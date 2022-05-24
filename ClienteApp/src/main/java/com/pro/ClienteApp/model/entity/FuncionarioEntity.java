@@ -1,6 +1,5 @@
 package com.pro.ClienteApp.model.entity;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 
 import javax.persistence.Column;
@@ -8,6 +7,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.validation.constraints.NotNull;
 
@@ -39,11 +41,13 @@ public class FuncionarioEntity {
 	@CPF(message = "{campo.cpf.invalido}")
 	private String cpf;
 
-	@Column
-	private BigDecimal salario;
-
-	@Column
-	private BigDecimal comissao;
+	@ManyToOne
+	@JoinColumn(name = "funccargo_id")
+	private CargosEntity cargo;
+	
+	@ManyToMany
+	@JoinColumn(name = "funcservic_id")
+	private ServicoPrestadoEntity servicoPrestado;
 	
 	 @Column(name = "data_cadastro", updatable = false) //updatable não permite que esse campo seja atualizado. 
 	 @JsonFormat(pattern =  "dd/MM/yyyy")//Formata o retorno do json em data br.
