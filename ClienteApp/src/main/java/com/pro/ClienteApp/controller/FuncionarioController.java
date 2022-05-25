@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.pro.ClienteApp.model.entity.FuncionarioEntity;
+import com.pro.ClienteApp.model.entity.ServicoPrestadoEntity;
 import com.pro.ClienteApp.model.repository.FuncionarioRepository;
 
 @RestController
@@ -42,7 +43,15 @@ public class FuncionarioController {
 		});
 	}
 	
-	
+	@PostMapping("/inserir/{id}")
+	@ResponseStatus(code = HttpStatus.OK)
+	public void inserirCargo(@PathVariable("id") Integer id,@RequestBody ServicoPrestadoEntity servicoPrestado) {
+	      funcionarioRepository.findById(id).map( funcRep -> {
+	    	 funcRep.setServicoPrestado(servicoPrestado);
+	    	 return funcionarioRepository.save(funcRep);
+	      }).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Funcionario não encontrado"));
+	}
+
 	@DeleteMapping("id")
 	@ResponseStatus(code = HttpStatus.NO_CONTENT)
 	public void deletaFunc(@PathVariable("id") Integer id) {
