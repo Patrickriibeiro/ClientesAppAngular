@@ -13,7 +13,7 @@ import org.springframework.web.filter.CorsFilter;
 
 @Configuration
 public class WebConfig {
-
+/*
     @Bean
     public FilterRegistrationBean<CorsFilter> corsFilterFilterRegistrationBean(){
 
@@ -32,5 +32,5 @@ public class WebConfig {
         filter.setOrder(Ordered.HIGHEST_PRECEDENCE);
 
         return filter;
-    }
+    } */
 }

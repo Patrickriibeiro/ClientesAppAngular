@@ -1,19 +1,19 @@
 package com.pro.ClienteApp.config;
 
-import org.springframework.context.annotation.Bean;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.http.SessionCreationPolicy;
+//import org.springframework.context.annotation.Bean;
+//import org.springframework.security.authentication.AuthenticationManager;
+//import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+//import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+//import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+//import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+//import org.springframework.security.config.http.SessionCreationPolicy;
 
-@EnableWebSecurity
+//@EnableWebSecurity
 //@EnableResourceServer
 //@EnableAuthorizationServer
-public class SecurityConfig extends WebSecurityConfigurerAdapter{
-	
-	@Override
+public class SecurityConfig {
+/*	
+	@Override extends WebSecurityConfigurerAdapter
 	public void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.
 		     inMemoryAuthentication()
@@ -35,6 +35,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	.and()
 	    .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 		
-	}
+	} */
 
 }

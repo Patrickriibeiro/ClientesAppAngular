@@ -29,7 +29,7 @@ public class ServicoPrestadoEntity {
 	@ManyToOne // relacionamento de muitos para um.
 	@JoinColumn(name = "id_cliente") // Define campo de forest key.
 	private ClienteEntity cliente;
-	
+		
 	@Column // se não passar um value com nome da coluna, a coluna receberá o nome da variavel.
 	private BigDecimal valor;
 	

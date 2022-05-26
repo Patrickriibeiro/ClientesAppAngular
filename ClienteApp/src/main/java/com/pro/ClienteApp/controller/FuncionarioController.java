@@ -47,7 +47,7 @@ public class FuncionarioController {
 	@ResponseStatus(code = HttpStatus.OK)
 	public void inserirCargo(@PathVariable("id") Integer id,@RequestBody ServicoPrestadoEntity servicoPrestado) {
 	      funcionarioRepository.findById(id).map( funcRep -> {
-	    	 funcRep.setServicoPrestado(servicoPrestado);
+	    	 funcRep.getServicoPrestado().add(servicoPrestado);
 	    	 return funcionarioRepository.save(funcRep);
 	      }).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Funcionario não encontrado"));
 	}

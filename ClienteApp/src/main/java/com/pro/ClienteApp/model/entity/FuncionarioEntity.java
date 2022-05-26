@@ -1,6 +1,7 @@
 package com.pro.ClienteApp.model.entity;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -42,12 +43,12 @@ public class FuncionarioEntity {
 	private String cpf;
 
 	@ManyToOne
-	@JoinColumn(name = "funccargo_id")
+	@JoinColumn(name = "id_cargo")
 	private CargosEntity cargo;
 	
 	@ManyToMany
-	@JoinColumn(name = "funcservic_id")
-	private ServicoPrestadoEntity servicoPrestado;
+	@JoinColumn(name = "id_servico")
+	private List<ServicoPrestadoEntity> servicoPrestado;
 	
 	 @Column(name = "data_cadastro", updatable = false) //updatable não permite que esse campo seja atualizado. 
 	 @JsonFormat(pattern =  "dd/MM/yyyy")//Formata o retorno do json em data br.
