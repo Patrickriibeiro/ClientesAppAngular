@@ -1,5 +1,6 @@
 package com.pro.ClienteApp.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +16,11 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.pro.ClienteApp.controller.dto.FuncionariosDTO;
+import com.pro.ClienteApp.model.entity.CargosEntity;
 import com.pro.ClienteApp.model.entity.FuncionarioEntity;
 import com.pro.ClienteApp.model.entity.ServicoPrestadoEntity;
+import com.pro.ClienteApp.model.repository.CargoRepository;
 import com.pro.ClienteApp.model.repository.FuncionarioRepository;
 
 @RestController
@@ -26,30 +30,27 @@ public class FuncionarioController {
 	@Autowired
 	private FuncionarioRepository funcionarioRepository;
 
+	@Autowired
+	private CargoRepository cargoRepository;
+
 	@PostMapping
 	@ResponseStatus(code = HttpStatus.CREATED)
 	public void salvarFuncionario(@RequestBody FuncionarioEntity func) {
 		funcionarioRepository.save(func);
 	}
-	
+
 	@PutMapping("{id}")
 	@ResponseStatus(code = HttpStatus.OK)
-	public void alterarFuncionario(@PathVariable("id") Integer id, @RequestBody FuncionarioEntity func) {
-		funcionarioRepository.findById(id).map( funcRep -> {
+	public void alterarFuncionario(@PathVariable("id") Integer id, @RequestBody FuncionariosDTO func) {
+		CargosEntity cargoEntity = cargoRepository.findById(func.getCargo().getId())
+				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cargo não encontrado"));
+
+		funcionarioRepository.findById(id).map(funcRep -> {
 			funcRep.setNome(func.getNome());
 			funcRep.setCpf(func.getCpf());
-			funcRep.setCargo(func.getCargo());
+			funcRep.setCargo(cargoEntity);
 			return funcionarioRepository.save(funcRep);
-		});
-	}
-	
-	@PostMapping("/inserir/{id}")
-	@ResponseStatus(code = HttpStatus.OK)
-	public void inserirCargo(@PathVariable("id") Integer id,@RequestBody ServicoPrestadoEntity servicoPrestado) {
-	      funcionarioRepository.findById(id).map( funcRep -> {
-	    	 funcRep.getServicoPrestado().add(servicoPrestado);
-	    	 return funcionarioRepository.save(funcRep);
-	      }).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Funcionario não encontrado"));
+		}).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Funcionario não encontrado"));
 	}
 
 	@DeleteMapping("id")
@@ -62,13 +63,26 @@ public class FuncionarioController {
 	}
 
 	@GetMapping({ "id" })
-	public FuncionarioEntity buscaFunc(@PathVariable("id") Integer id) {
-		return funcionarioRepository.findById(id)
-				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Funcionario não encontrado"));
+	public FuncionariosDTO buscaFunc(@PathVariable("id") Integer id) {
+		 FuncionarioEntity vo = funcionarioRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Funcionario não encontrado"));
+		 FuncionariosDTO dto = new FuncionariosDTO();
+		 dto.setNome(vo.getNome());
+		 dto.setCpf(vo.getCpf());
+		 dto.setCargo(vo.getCargo());	
+		 return dto;
 	}
 
 	@GetMapping()
-	public List<FuncionarioEntity> listarTodos() {
-		return funcionarioRepository.findAll();
+	public List<FuncionariosDTO> listarTodos() {
+		List<FuncionarioEntity> list = funcionarioRepository.findAll();
+		List<FuncionariosDTO> listDto = new ArrayList<FuncionariosDTO>();
+		list.forEach( x -> {	
+			FuncionariosDTO dto = new FuncionariosDTO();
+			dto.setNome(x.getNome());
+			dto.setCpf(x.getCpf());
+			dto.setCargo(x.getCargo());		
+			listDto.add(dto);
+		});
+		return listDto;
 	}
 }

@@ -2,6 +2,7 @@ package com.pro.ClienteApp.model.entity;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,9 +10,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Data;
 
@@ -27,12 +30,16 @@ public class ServicoPrestadoEntity {
 	private String descricao;
 	
 	@ManyToOne // relacionamento de muitos para um.
-	@JoinColumn(name = "id_cliente") // Define campo de forest key.
+	@JoinColumn(name = "id_cliente") // Define campo de forest key. 
 	private ClienteEntity cliente;
+	
+	@ManyToOne
+	@JoinColumn(name = "id_funcionario")
+	private List<ServicoPrestadoEntity> funcionario;
 		
 	@Column // se não passar um value com nome da coluna, a coluna receberá o nome da variavel.
 	private BigDecimal valor;
-	
+	  
 	@Column
 	@JsonFormat(pattern =  "dd/MM/yyyy")
 	private LocalDate data;

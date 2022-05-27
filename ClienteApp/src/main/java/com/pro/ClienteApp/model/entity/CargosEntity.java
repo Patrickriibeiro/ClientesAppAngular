@@ -8,9 +8,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -36,8 +37,8 @@ public class CargosEntity {
 	@Column(nullable = false)
 	private BigDecimal salario;
 	
-    @OneToMany
-    @JoinColumn(name = "id_funcionario")
+    @OneToMany(mappedBy = "cargo")
+    @JsonIgnore
     private List<FuncionarioEntity> funcionarioEntity;
 	
 }

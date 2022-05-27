@@ -17,6 +17,7 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.br.CPF;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -44,11 +45,8 @@ public class FuncionarioEntity {
 
 	@ManyToOne
 	@JoinColumn(name = "id_cargo")
+	@JsonIgnore
 	private CargosEntity cargo;
-	
-	@ManyToMany
-	@JoinColumn(name = "id_servico")
-	private List<ServicoPrestadoEntity> servicoPrestado;
 	
 	 @Column(name = "data_cadastro", updatable = false) //updatable não permite que esse campo seja atualizado. 
 	 @JsonFormat(pattern =  "dd/MM/yyyy")//Formata o retorno do json em data br.
