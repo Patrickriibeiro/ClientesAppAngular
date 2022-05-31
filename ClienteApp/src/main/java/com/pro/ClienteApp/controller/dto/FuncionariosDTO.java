@@ -17,9 +17,11 @@ import lombok.NoArgsConstructor;
 @JsonInclude(value = Include.NON_NULL)
 public class FuncionariosDTO {
 	
+	private String nomeCargo;
+	
 	private String nome;
 
-	private String cpf;
+ 	private String cpf;
 
 	private CargosEntity cargo;
 	

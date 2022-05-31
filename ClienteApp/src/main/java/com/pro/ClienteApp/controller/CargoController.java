@@ -1,7 +1,9 @@
 package com.pro.ClienteApp.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import org.jboss.jandex.VoidType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -15,8 +17,10 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.pro.ClienteApp.controller.dto.FuncionariosDTO;
 import com.pro.ClienteApp.model.entity.CargosEntity;
 import com.pro.ClienteApp.model.repository.CargoRepository;
+import com.pro.ClienteApp.model.repository.FuncionarioRepository;
 
 @RestController
 @RequestMapping("api/cargo")
@@ -24,6 +28,28 @@ public class CargoController {
 
 	@Autowired
 	private CargoRepository cargoRepository;
+	
+	@Autowired
+	private FuncionarioRepository funcRepository;
+	
+	
+	@GetMapping("/teste")
+	public List<FuncionariosDTO> buscarFuncionarioEmCargo(@RequestBody CargosEntity cargo ) {
+        List<FuncionariosDTO> funcList = new ArrayList<FuncionariosDTO>();		
+		cargoRepository.findById(cargo.getId())
+		.map( x -> {
+			funcRepository.findByCargo(x).forEach( y -> {
+				FuncionariosDTO dto = new FuncionariosDTO();
+				dto.setNome(y.getNome());
+				dto.setCpf(y.getCpf());
+				dto.setNomeCargo(x.getNome());
+				funcList.add(dto);
+			});	    
+			return Void.TYPE;
+		})
+		.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cargo não encontrado")); 
+	   return funcList;
+	}
 
 	@PostMapping
 	@ResponseStatus(code = HttpStatus.CREATED)

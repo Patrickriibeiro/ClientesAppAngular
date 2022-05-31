@@ -19,12 +19,14 @@ import org.springframework.web.server.ResponseStatusException;
 import com.pro.ClienteApp.controller.dto.FuncionariosDTO;
 import com.pro.ClienteApp.model.entity.CargosEntity;
 import com.pro.ClienteApp.model.entity.FuncionarioEntity;
-import com.pro.ClienteApp.model.entity.ServicoPrestadoEntity;
 import com.pro.ClienteApp.model.repository.CargoRepository;
 import com.pro.ClienteApp.model.repository.FuncionarioRepository;
 
+import lombok.extern.slf4j.Slf4j;
+
 @RestController
 @RequestMapping(value = "/api/funcionarios")
+@Slf4j
 public class FuncionarioController {
 
 	@Autowired
@@ -35,8 +37,13 @@ public class FuncionarioController {
 
 	@PostMapping
 	@ResponseStatus(code = HttpStatus.CREATED)
-	public void salvarFuncionario(@RequestBody FuncionarioEntity func) {
-		funcionarioRepository.save(func);
+	public void salvarFuncionario(@RequestBody FuncionariosDTO func) {
+	   FuncionarioEntity funcEntity = new FuncionarioEntity();
+	   funcEntity.setNome(func.getNome());
+	   funcEntity.setCpf(func.getCpf());
+	   CargosEntity cargo = cargoRepository.findById(func.getCargo().getId()).orElseThrow( () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cargo não encontrado"));
+	   funcEntity.setCargo(cargo);
+	   funcionarioRepository.save(funcEntity);
 	}
 
 	@PutMapping("{id}")
