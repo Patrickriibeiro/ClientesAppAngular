@@ -14,14 +14,15 @@ import { ServicoPrestadoService } from './servico-prestado.service';
 import { LoginComponent } from './login/login.component';
 import { LayoutComponent } from './layout/layout.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {MatCardModule} from '@angular/material/card';
+import { MatCardModule } from '@angular/material/card';
+import { FuncionariosModule } from './funcionarios/funcionarios.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     LoginComponent,
-    LayoutComponent   
+    LayoutComponent  
   ],
   imports: [
     BrowserModule,
@@ -32,7 +33,8 @@ import {MatCardModule} from '@angular/material/card';
     ClientesModule,
     ServicoPrestadoModule,
     BrowserAnimationsModule,
-    MatCardModule
+    MatCardModule,
+    FuncionariosModule
   ],
   providers: [
     ClientesService,
