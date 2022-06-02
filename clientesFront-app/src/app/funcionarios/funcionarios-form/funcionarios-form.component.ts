@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Funcioarios } from '../funcionarios';
+import { Funcionarios } from '../funcionarios';
+
+import { FuncionariosService } from "../../funcionarios.service";
+import { Cargo } from 'src/app/cargos/cargo';
+import { CargosService } from 'src/app/cargos.service';
 
 @Component({
   selector: 'app-funcionarios-form',
@@ -8,11 +12,21 @@ import { Funcioarios } from '../funcionarios';
 })
 export class FuncionariosFormComponent implements OnInit {
 
-  funciarios: Funcioarios;
+  funcionarios: Funcionarios;
+  cargos: Cargo[];
 
-  constructor() { }
+  constructor(private service: FuncionariosService,private serviceCargo: CargosService) {
+    this.funcionarios = service.getFuncionario();
+  }
 
   ngOnInit(): void {
+    this.serviceCargo
+    .getCargo()
+    .subscribe( response => this.cargos = response)
+  }
+
+  onSubmit() {
+    this.service.salvar(this.funcionarios).subscribe( Response => console.log(this.funcionarios));
   }
 
 }

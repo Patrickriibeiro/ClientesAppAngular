@@ -12,8 +12,7 @@
             </div>
             <div class="col-md-6">
                 <label for="inputNome">Mes: </label>
-                <select [(ngModel)]="mes" class="form-control" name="mes
-                 ">
+                <select [(ngModel)]="mes" class="form-control" name="mes">
                     <option value="">Selecione....</option>
                     <option *ngFor="let mes of meses" [value]="mes">
                         {{ mes }}

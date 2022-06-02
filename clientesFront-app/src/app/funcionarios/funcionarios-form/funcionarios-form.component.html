@@ -3,18 +3,18 @@
     <li class="breadcrumb-item active">Cadastro</li>
 </ol>
 <div class="container">
-    <form>
+    <form #funcionarioForm="ngForm" (ngSubmit)="onSubmit()">
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
                     <label>ID:</label>
-                    <input type="text" class="form-control" disabled="true" />
+                    <input type="text" class="form-control" [ngModel]="funcionarios.id" disabled="true" />
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
                     <label>Data Cadastro:</label>
-                    <input type="text" class="form-control" disabled="true">
+                    <input type="text" class="form-control" [ngModel]="funcionarios.dataCadastro" disabled="true">
                 </div>
             </div>
         </div>
@@ -22,21 +22,24 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <label>Nome: *</label>
-                    <input type="text" class="form-control" />
+                    <input type="text" class="form-control" 
+                          [(ngModel)]="funcionarios.nome" name="nome" />
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
                     <label>Cpf: *</label>
-                    <input type="text" class="form-control" />
+                    <input type="text" class="form-control" 
+                           [(ngModel)]="funcionarios.cpf" name="cpf" />
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col-md-12">
-                <select class="form-control" name="mes">
+                <select [(ngModel)]="funcionarios.cargo" class="form-control" name="cargo">
                     <option value="">Selecione....</option>
-                    <option></option>
+                    <option *ngFor="let cargo of cargos" [value]="cargo.id">
+                     {{cargo.id}} - {{ cargo.nome }}
                 </select>
             </div>
         </div>

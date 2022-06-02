@@ -16,6 +16,8 @@ import { LayoutComponent } from './layout/layout.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatCardModule } from '@angular/material/card';
 import { FuncionariosModule } from './funcionarios/funcionarios.module';
+import { FuncionariosService } from './funcionarios.service';
+import { CargosService } from './cargos.service';
 
 @NgModule({
   declarations: [
@@ -38,7 +40,9 @@ import { FuncionariosModule } from './funcionarios/funcionarios.module';
   ],
   providers: [
     ClientesService,
-    ServicoPrestadoService
+    ServicoPrestadoService,
+    FuncionariosService,
+    CargosService
   ],
   bootstrap: [AppComponent]
 })

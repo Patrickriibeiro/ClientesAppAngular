@@ -1,6 +1,9 @@
-export class Funcioarios {
+import { Cargo } from "../cargos/cargo"
+
+export class Funcionarios {
     id: number;
     nome: string;
-    cargo: any;
+    cpf: string;
+    cargo: Cargo;
     dataCadastro: String;
 }
