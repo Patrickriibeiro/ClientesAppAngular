@@ -26,7 +26,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@JsonIgnoreType
 public class ClienteEntity {
 	
 	@Id

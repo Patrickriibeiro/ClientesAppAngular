@@ -3,6 +3,7 @@ export class ServicoPrestado {
     preco?:string; 
 	data?:string;
 	idCliente?:number;
+    idFuncionario?:number;
 
     constructor(){}
 }

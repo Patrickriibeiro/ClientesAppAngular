@@ -7,8 +7,13 @@
     <form #consultaForm="ngForm" (submit)="consultar()">
         <div class="row">
             <div class="col-md-6">
-                <label for="inputNome">Nome Cliente: </label>
-                <input type="text" [(ngModel)]="nome" name="nome" class="form-control" id="inputNome">
+                <label for="inputNome">Nome Cliente : </label>
+                <select [ngModelOptions]="{standalone: true}" class="form-control" [(ngModel)]="nome">
+                    <option value="">Selecione....</option>
+                    <option *ngFor="let cliente of clientes" [value]="cliente.nome">
+                        {{ cliente.nome }}
+                    </option>
+                </select>
             </div>
             <div class="col-md-6">
                 <label for="inputNome">Mes: </label>
@@ -47,6 +52,7 @@
                         <th>Descricao</th>
                         <th>Valor</th>
                         <th>Data</th>
+                        <th>Funcionario</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -55,6 +61,7 @@
                         <td> {{ s.descricao}}</td>
                         <td> {{ s.valor }}</td>
                         <td> {{ s.data }}</td>
+                        <td> {{ s.funcionario.nome }}</td>
                 </tbody>
             </table>
         </div>

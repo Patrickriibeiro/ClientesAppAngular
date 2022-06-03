@@ -21,8 +21,10 @@ import org.springframework.web.server.ResponseStatusException;
 
 import com.pro.ClienteApp.controller.dto.ServicoPrestadoDTO;
 import com.pro.ClienteApp.model.entity.ClienteEntity;
+import com.pro.ClienteApp.model.entity.FuncionarioEntity;
 import com.pro.ClienteApp.model.entity.ServicoPrestadoEntity;
 import com.pro.ClienteApp.model.repository.ClienteRepository;
+import com.pro.ClienteApp.model.repository.FuncionarioRepository;
 import com.pro.ClienteApp.model.repository.ServicoPrestadoRepository;
 import com.pro.ClienteApp.utils.BigDecimalConverter;
 
@@ -36,6 +38,9 @@ public class ServicoPrestadoController {
 
 	@Autowired
 	private ServicoPrestadoRepository servicoRepo;
+	
+	@Autowired 
+	private FuncionarioRepository funcRepo;
 
 	@Autowired
 	private BigDecimalConverter bigConverter;
@@ -45,6 +50,8 @@ public class ServicoPrestadoController {
 	public ServicoPrestadoEntity salvar(@RequestBody @Valid ServicoPrestadoDTO dto) {
 
 		Optional<ClienteEntity> clienteOpcional = clienteRepo.findById(dto.getIdCliente());
+		
+		Optional<FuncionarioEntity> funcionarioOptional = funcRepo.findById(dto.getIdFuncionario());
 
 		ServicoPrestadoEntity servicoPrestado = new ServicoPrestadoEntity();
 		servicoPrestado.setDescricao(dto.getDescricao());
@@ -52,13 +59,21 @@ public class ServicoPrestadoController {
 		servicoPrestado.setCliente(clienteOpcional
 				.orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Cliente inexistente")));
 		servicoPrestado.setValor(bigConverter.bigDecimalConverter(dto.getPreco()));
-
+		
+		servicoPrestado.setFuncionario(funcionarioOptional
+				.orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Funcionario inexistente")));
+      
 		return servicoRepo.save(servicoPrestado);
 	}
 	
 	@GetMapping()
 	public List<ServicoPrestadoEntity> pesquisar(@RequestParam(value = "nome", required = false, defaultValue = "") String nome, 
-			@RequestParam(value = "mes", required = false, defaultValue = "") String mes){		
-		return servicoRepo.findByNomeClienteAndMes("%" + nome + "%", Integer.parseInt(mes));	
+			@RequestParam(value = "mes", required = false, defaultValue = "") String mes){	
+	  return servicoRepo.findByNomeClienteAndMes("%" + nome + "%", Integer.parseInt(mes));
 	}
-}
+	
+	@GetMapping("/buscarTodos")
+	public List<ServicoPrestadoEntity> buscarTodos(){
+	   return servicoRepo.findAll();	
+	 }
+	}
