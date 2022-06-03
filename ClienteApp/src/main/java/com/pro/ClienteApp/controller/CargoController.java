@@ -34,7 +34,7 @@ public class CargoController {
 	private FuncionarioRepository funcRepository;
 	
 	
-	@GetMapping("/teste")
+	@GetMapping("/buscafunccargo")
 	public List<FuncionariosDTO> buscarFuncionarioEmCargo(@RequestBody CargosEntity cargo ) {
         List<FuncionariosDTO> funcList = new ArrayList<FuncionariosDTO>();		
 		cargoRepository.findById(cargo.getId())

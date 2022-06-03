@@ -4,5 +4,5 @@ export class Cargo {
     id: Number;
     nome: String;
     salario: String;
-    funcionarios : Funcionarios[];  
+    funcionariosid : number;  
 }

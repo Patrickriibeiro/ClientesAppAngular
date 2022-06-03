@@ -1,30 +1,38 @@
 package com.pro.ClienteApp.controller.dto;
 
+import java.time.LocalDate;
 import java.util.List;
 
+import javax.validation.constraints.NotEmpty;
+
+import org.hibernate.validator.constraints.br.CPF;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
-import com.pro.ClienteApp.model.entity.CargosEntity;
-import com.pro.ClienteApp.model.entity.ServicoPrestadoEntity;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 @JsonInclude(value = Include.NON_NULL)
 public class FuncionariosDTO {
 	
+    private Integer id;
+	
 	private String nomeCargo;
 	
+	private Integer cargoId;
+		
+	@NotEmpty(message = "{campo.cargo.obrigatorio}")	
 	private String nome;
 
+	@NotEmpty(message = "{campo.cpf.obrigatorio}")
+	@CPF(message = "{campo.cpf.invalido}")
  	private String cpf;
-
-	private CargosEntity cargo;
 	
-	private List<ServicoPrestadoEntity> servicoPrestado;
+	@JsonFormat(pattern =  "dd/MM/yyyy")
+	private LocalDate dataCadastro; 
+	
+	private List<ServicoPrestadoDTO> servicoPrestado;
 
 }

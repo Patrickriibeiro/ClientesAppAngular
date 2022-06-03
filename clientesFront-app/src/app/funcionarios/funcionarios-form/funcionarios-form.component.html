@@ -5,16 +5,27 @@
 <div class="container">
     <form #funcionarioForm="ngForm" (ngSubmit)="onSubmit()">
         <div class="row">
+            <div class="col-md-12">
+                <div class="alert alert-success" role="alert" *ngIf="success">
+                    Funcionario salvo/atualizado com sucesso!
+                </div>
+                <div class="alert alert-danger" role="alert" *ngFor="let erro of erros">
+                    {{ erro }}
+                </div>
+            </div>
+        </div>
+        <div class="row" *ngIf="funcionarios.id">
             <div class="col-md-6">
                 <div class="form-group">
                     <label>ID:</label>
-                    <input type="text" class="form-control" [ngModel]="funcionarios.id" disabled="true" />
+                    <input type="text" class="form-control" [ngModel]="funcionarios.id" disabled="true" name="id" />
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
                     <label>Data Cadastro:</label>
-                    <input type="text" class="form-control" [ngModel]="funcionarios.dataCadastro" disabled="true">
+                    <input type="text" class="form-control" [ngModel]="funcionarios.dataCadastro" disabled="true"
+                        name="dataCadastro">
                 </div>
             </div>
         </div>
@@ -22,34 +33,33 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <label>Nome: *</label>
-                    <input type="text" class="form-control" 
-                          [(ngModel)]="funcionarios.nome" name="nome" />
+                    <input type="text" class="form-control" [(ngModel)]="funcionarios.nome" name="nome" />
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
                     <label>Cpf: *</label>
-                    <input type="text" class="form-control" 
-                           [(ngModel)]="funcionarios.cpf" name="cpf" />
+                    <input type="text" class="form-control" [(ngModel)]="funcionarios.cpf" name="cpf" />
                 </div>
             </div>
         </div>
         <div class="row">
-            <div class="col-md-12">
-                <select [(ngModel)]="funcionarios.cargo" class="form-control" name="cargo">
+            <div class="col-md-6">
+                <select [(ngModel)]="funcionarios.cargoId" class="form-control" name="cargoId">
                     <option value="">Selecione....</option>
                     <option *ngFor="let cargo of cargos" [value]="cargo.id">
-                     {{cargo.id}} - {{ cargo.nome }}
+                        {{cargo.id}} - {{ cargo.nome }}
                 </select>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-md-2">
+            <div class="col-md-4">
                 <button type="submit" class="btn btn-success">
-                <i class="fa fa-save"></i> Salvar
-            </button>
+                    <i class="fa fa-save"></i> Salvar
+                </button>
+
+                <button type="button" class="btn btn-danger ml-2" (click)="(voltarListaFuncionarios())">
+                    <i class="fa fa-arrow-alt-circle-left"></i> Voltar
+                </button>
             </div>
         </div>
-
     </form>
 </div>

@@ -4,6 +4,7 @@ export class Funcionarios {
     id: number;
     nome: string;
     cpf: string;
-    cargo: Cargo;
+    cargoId: number;
+    nomeCargo: string;
     dataCadastro: String;
 }

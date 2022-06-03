@@ -17,16 +17,15 @@ export class FuncionariosService {
 
    }
 
-  salvar(funcionarios: Funcionarios) : Observable<any> {
+  salvar(funcionarios: Funcionarios) : Observable<Funcionarios> {
     return this.http.post<Funcionarios>(`${this.apiUrl}`, funcionarios)
   }
 
-  
+  getFuncionarios() : Observable<Funcionarios[]>{
+    return this.http.get<Funcionarios[]>(this.apiUrl)
+  }
 
-  getFuncionario() : Funcionarios {
-    let funcionarios : Funcionarios = new Funcionarios();
-    funcionarios.nome = "teste";
-    funcionarios.cpf = "12345";
-    return funcionarios;
+  getFuncionarioById(id: number) : Observable<Funcionarios>{
+    return this.http.get<Funcionarios>(`${this.apiUrl}/${id}`)
   }
 }

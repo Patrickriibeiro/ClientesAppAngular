@@ -20,7 +20,8 @@ import { RouterModule } from '@angular/router';
   ],
   exports: [
     CommonModule,
-    FuncionariosRoutingModule
+    FuncionariosRoutingModule,
+    FuncionariosListComponent
   ]
 })
 export class FuncionariosModule { }

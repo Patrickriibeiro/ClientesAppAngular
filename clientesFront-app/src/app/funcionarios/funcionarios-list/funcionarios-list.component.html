@@ -1,1 +1,40 @@
-<p>funcionarios-list works!</p>
+<h1 class="mt-4">Funcionarios</h1>
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item active">Consulta</li>
+</ol>
+<div class="container">
+    <div class="row">
+        <div class="col-md-2">
+            <button class="btn btn-warning" (click)="(novoCadastro())"><i class="fa fa-plus"></i> Novo</button>
+        </div>
+    </div>
+    <br/>
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-condensed table-hover">
+                <thead>
+                    <th>Id</th>
+                    <th>Nome</th>
+                    <th>CPF</th>
+                    <th>Cargo</th>
+                    <th>Data Cadastro</th>
+                    <th></th>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let funcionario of funcionarios">
+                        <td>{{ funcionario.id }}</td>
+                        <td>{{ funcionario.nome }}</td>
+                        <td>{{ funcionario.cpf }}</td>
+                        <td>{{ funcionario.nomeCargo }}</td>
+                        <td>{{ funcionario.dataCadastro }}</td>
+                        <td></td>
+                           
+                           <button class="btn btn-primary">
+                               <i class="fa fa-edit"></i>
+                           </button>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

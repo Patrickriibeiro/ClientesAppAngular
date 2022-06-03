@@ -35,7 +35,7 @@ public class FuncionarioEntity {
 
 	@Column(nullable = false, length = 60)
 	private String nome;
-
+	
 	@Column(nullable = false, length = 11)
 	@NotNull(message = "{campo.cpf.obrigatorio}")
 	@CPF(message = "{campo.cpf.invalido}")
