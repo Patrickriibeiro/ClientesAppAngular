@@ -38,7 +38,6 @@ public class CargosEntity {
 	private BigDecimal salario;
 	
     @OneToMany(mappedBy = "cargo")
-    @JsonIgnore
     private List<FuncionarioEntity> funcionarioEntity;
 	
 }

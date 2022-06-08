@@ -4,11 +4,21 @@
 </ol>
 <div class="container">
     <div class="row">
+        <div class="col-md-12">
+            <div class="alert alert-success" role="alert" *ngIf="mensagemSucesso">
+                {{ mensagemSucesso }}
+            </div>
+            <div class="alert alert-danger" role="alert" *ngFor="let erro of erros">
+                {{ erro }}
+            </div>
+        </div>
+    </div>
+    <div class="row">
         <div class="col-md-2">
             <button class="btn btn-warning" (click)="(novoCadastro())"><i class="fa fa-plus"></i> Novo</button>
         </div>
     </div>
-    <br/>
+    <br />
     <div class="row">
         <div class="col-md-12">
             <table class="table table-condensed table-hover">
@@ -28,13 +38,35 @@
                         <td>{{ funcionario.nomeCargo }}</td>
                         <td>{{ funcionario.dataCadastro }}</td>
                         <td></td>
-                           
-                           <button class="btn btn-primary">
-                               <i class="fa fa-edit"></i>
-                           </button>
+
+                        <button class="btn btn-primary" routerLink="/funcionarios/form/{{ funcionario.id }}">
+                            <i class="fa fa-edit"></i>
+                        </button>
+
+                        <button class="btn btn-danger" data-toggle="modal" data-target="#modalDelecao"
+                            (click)="preparaDelecao(funcionario)">
+                            <i class="fa fa-trash"></i>
+                        </button>
                     </tr>
                 </tbody>
             </table>
+        </div>
+    </div>
+    <div id="modalDelecao" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4>Confirmação</h4>
+                </div>
+                <div class="modal-body" *ngIf="funcionarioSelecionado">
+                    Confirma a deleção do(a) Funcionario {{ funcionarioSelecionado.nome }} ?
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-success" (click)="deletarFuncionario()" data-dismiss="modal"> Confirmar
+                    </button>
+                    <button class="btn btn-danger" data-dismiss="modal"> Cancelar </button>
+                </div>
+            </div>
         </div>
     </div>
 </div>

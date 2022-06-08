@@ -28,4 +28,12 @@ export class FuncionariosService {
   getFuncionarioById(id: number) : Observable<Funcionarios>{
     return this.http.get<Funcionarios>(`${this.apiUrl}/${id}`)
   }
+
+  atualizarFuncionarioById(id: number,funcionarios: Funcionarios) : Observable<Funcionarios>{
+    return this.http.put<Funcionarios>(`${this.apiUrl}/${id}`,funcionarios)
+  }
+
+  deletarFuncionarioById(id: number) : Observable<any>{
+    return this.http.delete<any>(`${this.apiUrl}/${id}`);
+  }
 }

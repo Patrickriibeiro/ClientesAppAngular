@@ -45,14 +45,26 @@ export class FuncionariosFormComponent implements OnInit {
   }
 
   onSubmit() {
-    this.service.salvar(this.funcionarios).subscribe(Response => {
-      this.success = true;
-      this.erros = [];
-      this.funcionarios = Response;
-    }, ErroResponse => {
-      this.success = false;
-      this.erros = ErroResponse.error.errors;
-    });
+    if (this.id) {
+      this.service.atualizarFuncionarioById(this.id,this.funcionarios)
+      .subscribe( Response => {
+        this.success = true;
+        this.erros = [];
+      }, ErroResponse => {
+        this.success = false;
+        this.erros = ['Funcionario não atualizado com sucesso.']
+      })
+
+    } else {
+      this.service.salvar(this.funcionarios).subscribe(Response => {
+        this.success = true;
+        this.erros = [];
+        this.funcionarios = Response;
+      }, ErroResponse => {
+        this.success = false;
+        this.erros = ErroResponse.error.errors;
+      });
+    }
   }
 
   voltarListaFuncionarios() {

@@ -12,6 +12,9 @@ import { Funcionarios } from '../funcionarios';
 export class FuncionariosListComponent implements OnInit {
 
 funcionarios : Funcionarios[];
+funcionarioSelecionado: Funcionarios;
+mensagemSucesso: string;
+erros: String[];
 
   constructor(private service : FuncionariosService,private router : Router) { 
   }
@@ -24,5 +27,18 @@ funcionarios : Funcionarios[];
 
   novoCadastro(){
     this.router.navigate(['/funcionarios/form'])
+  }
+
+  preparaDelecao(funcionario : Funcionarios){
+    this.funcionarioSelecionado = funcionario;
+  }
+
+  deletarFuncionario(){
+    this.service.deletarFuncionarioById(this.funcionarioSelecionado.id).subscribe(Response => { 
+      this.mensagemSucesso = 'Funcionario deletado com sucesso';
+      this.ngOnInit();
+    },Error => {
+      this.erros = Error.error.errors;
+    })
   }
 }

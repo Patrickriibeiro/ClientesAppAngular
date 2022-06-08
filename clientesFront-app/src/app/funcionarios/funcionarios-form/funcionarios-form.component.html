@@ -1,6 +1,6 @@
 <h1 class="mt-4">Funcionarios</h1>
 <ol class="breadcrumb mb-4">
-    <li class="breadcrumb-item active">Cadastro</li>
+    <li class="breadcrumb-item active">{{ funcionarios.id  ? 'Edição' : 'Cadastro'}}</li>
 </ol>
 <div class="container">
     <form #funcionarioForm="ngForm" (ngSubmit)="onSubmit()">
@@ -52,8 +52,13 @@
                 </select>
             </div>
             <div class="col-md-4">
-                <button type="submit" class="btn btn-success">
+
+                <button type="submit" class="btn btn-success" *ngIf="!funcionarios.id">
                     <i class="fa fa-save"></i> Salvar
+                </button>
+
+                <button type="submit" class="btn btn-primary" *ngIf="funcionarios.id">
+                    <i class="fa fa-sync-alt"></i> Atualizar
                 </button>
 
                 <button type="button" class="btn btn-danger ml-2" (click)="(voltarListaFuncionarios())">

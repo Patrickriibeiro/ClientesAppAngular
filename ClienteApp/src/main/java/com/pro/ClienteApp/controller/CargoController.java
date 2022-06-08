@@ -29,27 +29,24 @@ public class CargoController {
 
 	@Autowired
 	private CargoRepository cargoRepository;
-	
+
 	@Autowired
 	private FuncionarioRepository funcRepository;
-	
-	
+
 	@GetMapping("/buscafunccargo")
-	public List<FuncionariosDTO> buscarFuncionarioEmCargo(@RequestBody CargosEntity cargo ) {
-        List<FuncionariosDTO> funcList = new ArrayList<FuncionariosDTO>();		
-		cargoRepository.findById(cargo.getId())
-		.map( x -> {
-			funcRepository.findByCargo(x).forEach( y -> {
+	public List<FuncionariosDTO> buscarFuncionarioEmCargo(@RequestBody CargosEntity cargo) {
+		List<FuncionariosDTO> funcList = new ArrayList<FuncionariosDTO>();
+		cargoRepository.findById(cargo.getId()).map(x -> {
+			funcRepository.findByCargo(x).forEach(y -> {
 				FuncionariosDTO dto = new FuncionariosDTO();
 				dto.setNome(y.getNome());
 				dto.setCpf(y.getCpf());
 				dto.setNomeCargo(x.getNome());
 				funcList.add(dto);
-			});	    
+			});
 			return Void.TYPE;
-		})
-		.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cargo não encontrado")); 
-	   return funcList;
+		}).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cargo não encontrado"));
+		return funcList;
 	}
 
 	@PostMapping
@@ -84,6 +81,11 @@ public class CargoController {
 	@DeleteMapping("{id}")
 	@ResponseStatus(code = HttpStatus.OK)
 	public void deletarCargo(@PathVariable("id") Integer id) {
-		cargoRepository.deleteById(id);
+		cargoRepository.findAll().forEach(x -> {
+			if(x.getFuncionarioEntity().isEmpty())
+				cargoRepository.deleteById(id);
+			else
+			 new ResponseStatusException(HttpStatus.BAD_REQUEST, "Cargo com funcionarios cadastrados.");
+		});
 	}
 }

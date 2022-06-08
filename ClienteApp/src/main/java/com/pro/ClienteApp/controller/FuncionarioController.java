@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.pro.ClienteApp.controller.dto.CargoDTO;
 import com.pro.ClienteApp.controller.dto.FuncionariosDTO;
 import com.pro.ClienteApp.model.entity.CargosEntity;
 import com.pro.ClienteApp.model.entity.FuncionarioEntity;
@@ -65,11 +64,11 @@ public class FuncionarioController {
 		}).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Funcionario não encontrado"));
 	}
 
-	@DeleteMapping("id")
-	@ResponseStatus(code = HttpStatus.NO_CONTENT)
+	@DeleteMapping("{id}")
+	@ResponseStatus(code = HttpStatus.OK)
 	public void deletaFunc(@PathVariable("id") Integer id) {
 		funcionarioRepository.findById(id).map(func -> {
-			funcionarioRepository.delete(func);
+			funcionarioRepository.deleteById(id);
 			return Void.TYPE;
 		}).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Funcionario não encontrado"));
 	}
