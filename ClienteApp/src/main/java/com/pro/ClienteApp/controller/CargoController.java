@@ -3,6 +3,8 @@ package com.pro.ClienteApp.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -51,8 +53,8 @@ public class CargoController {
 
 	@PostMapping
 	@ResponseStatus(code = HttpStatus.CREATED)
-	public void criarCargo(@RequestBody CargosEntity cargo) {
-		cargoRepository.save(cargo);
+	public CargosEntity criarCargo(@RequestBody @Valid CargosEntity cargo) {
+		return cargoRepository.save(cargo);
 	}
 
 	@GetMapping("{id}")
@@ -62,10 +64,10 @@ public class CargoController {
 				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cargo não encontrado"));
 	}
 
-	@PutMapping
+	@PutMapping("{id}")
 	@ResponseStatus(code = HttpStatus.OK)
 	public void alterarCargo(@PathVariable("id") Integer id, @RequestBody CargosEntity cargo) {
-		cargoRepository.findById(id).map(cargoVO -> {
+		    cargoRepository.findById(id).map(cargoVO -> {
 			cargoVO.setNome(cargo.getNome());
 			cargoVO.setSalario(cargo.getSalario());
 			return cargoRepository.save(cargoVO);
@@ -80,7 +82,7 @@ public class CargoController {
 
 	@DeleteMapping("{id}")
 	@ResponseStatus(code = HttpStatus.OK)
-	public void deletarCargo(@PathVariable("id") Integer id) {
+	public void deletarCargo(@PathVariable("id") @Valid Integer id) {
 		cargoRepository.findAll().forEach(x -> {
 			if(x.getFuncionarioEntity().isEmpty())
 				cargoRepository.deleteById(id);

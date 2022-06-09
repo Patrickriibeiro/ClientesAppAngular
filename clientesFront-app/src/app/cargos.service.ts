@@ -14,7 +14,24 @@ export class CargosService {
 
   constructor(private http: HttpClient) { }
 
-  getCargo(): Observable<Cargo[]> {
+  getCargos(): Observable<Cargo[]> {
     return this.http.get<Cargo[]>(this.apiUrl);
   }
+
+  getCargoById(id: number) : Observable<Cargo>{
+    return this.http.get<Cargo>(`${this.apiUrl}/${id}`)
+  }
+
+  salvar(cargo: Cargo) : Observable<Cargo> {
+    return this.http.post<Cargo>(`${this.apiUrl}`, cargo)
+  }
+
+  deletarCargoById(id: number) : Observable<any>{
+    return this.http.delete<any>(`${this.apiUrl}/${id}`);
+  }
+
+  atualizarCargoById(id: number,cargo: Cargo) : Observable<Cargo>{
+    return this.http.put<Cargo>(`${this.apiUrl}/${id}`,cargo)
+  }
+
 }

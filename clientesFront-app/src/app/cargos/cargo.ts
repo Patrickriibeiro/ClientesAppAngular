@@ -1,8 +1,8 @@
-import { Funcionarios } from "../funcionarios/funcionarios"
+import { Funcionarios } from "../funcionarios/funcionarios";
 
 export class Cargo {
-    id: Number;
-    nome: String;
-    salario: String;
-    funcionariosid : number;  
+    id: number;
+    nome: string;
+    salario: string;
+    funcionarioEntity: Funcionarios
 }

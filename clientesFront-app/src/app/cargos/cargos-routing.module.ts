@@ -1,7 +1,18 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { CargosFormComponent } from './cargos-form/cargos-form.component';
+import { LayoutComponent } from '../layout/layout.component'
+import { CargoListaComponent } from './cargo-lista/cargo-lista.component';
 
-const routes: Routes = [];
+const routes: Routes = [
+  {
+    path: 'cargo', component: LayoutComponent, children: [
+      { path: 'form', component: CargosFormComponent },
+      { path: 'lista', component: CargoListaComponent },
+      { path: 'form/:id', component: CargosFormComponent }
+    ]
+  }
+];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

@@ -18,6 +18,7 @@ import { MatCardModule } from '@angular/material/card';
 import { FuncionariosModule } from './funcionarios/funcionarios.module';
 import { FuncionariosService } from './funcionarios.service';
 import { CargosService } from './cargos.service';
+import { CargosModule } from './cargos/cargos.module';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { CargosService } from './cargos.service';
     ServicoPrestadoModule,
     BrowserAnimationsModule,
     MatCardModule,
-    FuncionariosModule
+    FuncionariosModule,
+    CargosModule
   ],
   providers: [
     ClientesService,

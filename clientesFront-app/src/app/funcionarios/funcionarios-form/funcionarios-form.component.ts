@@ -29,7 +29,7 @@ export class FuncionariosFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.serviceCargo
-      .getCargo()
+      .getCargos()
       .subscribe(response => this.cargos = response)
 
     let params: Observable<Params> = this.activateRoute.params
