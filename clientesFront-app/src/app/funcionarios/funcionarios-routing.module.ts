@@ -9,7 +9,8 @@ const routes: Routes = [
   { path : 'funcionarios', component : LayoutComponent, children: [
     {path : 'form', component : FuncionariosFormComponent},
     {path : 'lista', component : FuncionariosListComponent},
-    { path: 'form/:id', component: FuncionariosFormComponent }
+    { path: 'form/:id', component: FuncionariosFormComponent },
+    {path : '' , redirectTo: '/funcionarios/lista', pathMatch: 'full' }
   ]}
 ];
 

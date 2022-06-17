@@ -9,7 +9,8 @@ const routes: Routes = [
     path: 'cargo', component: LayoutComponent, children: [
       { path: 'form', component: CargosFormComponent },
       { path: 'lista', component: CargoListaComponent },
-      { path: 'form/:id', component: CargosFormComponent }
+      { path: 'form/:id', component: CargosFormComponent },
+      {path : '' , redirectTo: '/cargo/lista', pathMatch: 'full' }
     ]
   }
 ];
